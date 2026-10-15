@@ -275,7 +275,7 @@ which can be printed out or saved.</string>
        <item row="1" column="0">
         <widget class="QLabel" name="label_17">
          <property name="text">
-          <string>Have you soldered on resistors R2 and R3?</string>
+          <string>Have you soldered on resistors R1 and R2?</string>
          </property>
         </widget>
        </item>
@@ -313,7 +313,7 @@ which can be printed out or saved.</string>
      <x>0</x>
      <y>0</y>
      <width>857</width>
-     <height>38</height>
+     <height>34</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

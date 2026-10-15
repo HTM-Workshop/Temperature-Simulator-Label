@@ -134,7 +134,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.frame, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 857, 38))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 857, 34))
         self.menuBar.setObjectName("menuBar")
         self.menuFile = QtWidgets.QMenu(self.menuBar)
         self.menuFile.setObjectName("menuFile")
@@ -199,7 +199,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "This will automatically generate a calibrated protractor\n"
 "which can be printed out or saved."))
         self.label_7.setText(_translate("MainWindow", "NOT FOR MEDICAL USE"))
-        self.label_17.setText(_translate("MainWindow", "Have you soldered on resistors R2 and R3?"))
+        self.label_17.setText(_translate("MainWindow", "Have you soldered on resistors R1 and R2?"))
         self.radio_resist_yes.setText(_translate("MainWindow", "Yes"))
         self.radio_resist_no.setText(_translate("MainWindow", "No"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
@@ -207,13 +207,3 @@ class Ui_MainWindow(object):
         self.action_quit.setText(_translate("MainWindow", "Quit"))
         self.action_about.setText(_translate("MainWindow", "About"))
         self.action_license.setText(_translate("MainWindow", "License"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())

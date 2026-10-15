@@ -20,8 +20,8 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-VERSION = "v1.2"
-DEBUG = False
+VERSION = "v1.2.1"
+DEBUG = True
 
 import sys
 import math
@@ -131,7 +131,7 @@ class ProtractorGen(QtWidgets.QMainWindow, Ui_MainWindow):
         if sys.platform == 'linux':
             self.font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf", 90)
         elif sys.platform == 'darwin':
-            self.font = ImageFont.truetype("/System/Library/Fonts/Keyboard.ttf", 90)
+            self.font = ImageFont.truetype("/System/Library/Fonts/Monaco.ttf", 80)
         elif sys.platform == 'win32':
             self.font = ImageFont.truetype("C:/Windows/Fonts/consola.ttf", 90)
         else:
@@ -165,9 +165,9 @@ class ProtractorGen(QtWidgets.QMainWindow, Ui_MainWindow):
         img_text = Image.new(mode = "RGBA", size = (800, 400), color = (0, 255, 0, 0))
         imgt = ImageDraw.Draw(img_text)
         imgt.text(
-            (0, 0), 
-            text = label_str, 
-            font = self.font, 
+            (0, 0),
+            text = label_str,
+            font = self.font,
             align = 'center'
         )
         position = [100, 100]
@@ -189,7 +189,7 @@ class ProtractorGen(QtWidgets.QMainWindow, Ui_MainWindow):
     def draw_temp_divisions(self, rd_ratio: float, ysi_400: bool, full_lines: bool):
 
         # temp range to plot
-        temp_range = range(40, 1, -1)  
+        temp_range = range(40, 1, -1)
 
         if full_lines:
             level = 1
@@ -212,7 +212,7 @@ class ProtractorGen(QtWidgets.QMainWindow, Ui_MainWindow):
             x_end = x * self.res_w / (2 * level)
             y_end = y * self.res_h / (2 * level)
             segment = [((self.res_w / 2) + x_start, (self.res_h // 2) + y_start), ((self.res_w // 2) + x_end, (self.res_h // 2) + y_end)]
-            self.img1.line(segment, width = 10)   
+            self.img1.line(segment, width = 10)
 
             # add labels to those divisions
             img_text = Image.new(mode = "RGBA", size = (200, 200), color = (0, 255, 0, 0))
@@ -234,12 +234,55 @@ class ProtractorGen(QtWidgets.QMainWindow, Ui_MainWindow):
     # this calculation is done on the deadzone-corrected angular range (self.usable_degrees).
     def get_angle_from_celsius(self, temp: int, resist_ratio: float, dead_zone: int, ysi_400: bool) -> int:
         if ysi_400:
-            resistance = (-0.0296102246566647 * (temp ** 3)) + (4.54491006929092 * (temp ** 2)) + (-270.150380192564 * temp) + 6628.80893409997
+            #resistance = (-0.0296102246566647 * (temp ** 3)) + (4.54491006929092 * (temp ** 2)) + (-270.150380192564 * temp) + 6628.80893409997
             #resistance = resistance - 1200         # remove minimum resistance expected at lowest setting for calibration
+
+            if (temp > 47):
+                resistance = (0.500000000000024 * (temp ** 2)) + (-81.50000000000236 * (temp ** 1)) + (3636.000000000058)
+
+            elif (temp <= 47 and temp > 44):
+                resistance = (0.6500000000002323 * (temp ** 2)) + (-96.7500000000211 * (temp ** 1)) + (4021.6000000004788)
+
+            elif (temp <= 44 and temp > 38):
+                resistance = (0.02083333333334622 * (temp ** 4)) + (-3.421296296298429 * (temp ** 3)) + (211.60416666679887 * (temp ** 2)) + (-5887.346560850199 * (temp ** 1)) + (63756.78571432323)
+
+            elif (temp <= 38 and temp > 32):
+                resistance = (0.04166666666670067 * (temp ** 4)) + (-5.824074074078791 * (temp ** 3)) + (306.37500000024534 * (temp ** 2)) + (-7249.640211645886 * (temp ** 1)) + (67081.08730163654)
+
+            elif (temp <= 32 and temp > 29):
+                resistance = (2.000000000000679 * (temp ** 2)) + (-197.00000000004115 * (temp ** 1)) + (5925.000000000623)
+
+            elif (temp <= 29 and temp > 26):
+                resistance = (2.500000000000442 * (temp ** 2)) + (-224.50000000002424 * (temp ** 1)) + (6304.000000000331)
+
+            else:
+                resistance = (0.0016625137314790505 * (temp ** 4)) + (-0.18580208730132625 * (temp ** 3)) + (10.415558013533827 * (temp ** 2)) + (-374.27821788406396 * (temp ** 1)) + (7354.4537549407105)
         else:
-            resistance = (-0.0758117011986962 * (temp ** 3)) + (11.816010614772 * (temp ** 2)) + (-710.457138320909 * temp) + 17560.6514816452
+            #resistance = (-0.0758117011986962 * (temp ** 3)) + (11.816010614772 * (temp ** 2)) + (-710.457138320909 * temp) + 17560.6514816452
             #resistance = resistance - 3196         # remove minimum resistance expected at lowest setting for calibration
-        
+            if (temp > 47):
+                resistance = (0.3333333333338651 * (temp ** 3)) + (-47.00000000007765 * (temp ** 2)) + (2118.666666670447 * (temp ** 1)) + (-27938.000000061336)
+
+            elif (temp <= 47 and temp > 44):
+                resistance = (3.000000000000848 * (temp ** 2)) + (-373.0000000000769 * (temp ** 1)) + (13330.000000001744)
+
+            elif (temp <= 44 and temp > 38):
+                resistance = (2.9999999999997793 * (temp ** 2)) + (-368.99999999998244 * (temp ** 1)) + (13155.999999999654)
+
+            elif (temp <= 38 and temp > 35):
+                resistance = (4.0000000000003935 * (temp ** 2)) + (-442.0000000000287 * (temp ** 1)) + (14488.000000000524)
+
+            elif (temp <= 35 and temp > 32):
+                resistance = (3.000000000000868 * (temp ** 2)) + (-377.000000000058 * (temp ** 1)) + (13434.000000000968)
+
+            elif (temp <= 32 and temp > 29):
+                resistance = (6.0000000000010525 * (temp ** 2)) + (-566.000000000064 * (temp ** 1)) + (16414.00000000097)
+
+            elif (temp <= 29 and temp > 26):
+                resistance = (5.000000000000884 * (temp ** 2)) + (-509.0000000000488 * (temp ** 1)) + (15598.000000000673)
+
+            else:
+                resistance = (0.0040342882171976735 * (temp ** 4)) + (-0.4759868317589989 * (temp ** 3)) + (27.483240722297392 * (temp ** 2)) + (-996.0657439345713 * (temp ** 1)) + (19586.645849802408)
 
         # resistance now contains the output goal resistance. Now we need to determine what resistance the main poteniometer
         # needs to be at to return that resistance value. p_res is the resistance value that the main pot in isolation
