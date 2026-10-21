@@ -3,8 +3,7 @@
 U_NAME := $(shell uname -s)
 
 all:
-	pip3 install virtualenv --user
-	python3 -m virtualenv protractor_gen_build
+	python3 -m venv protractor_gen_build
 	. ./protractor_gen_build/bin/activate
 	make install-reqs
 	@if [ "$(U_NAME)" = "Darwin" ]; then \

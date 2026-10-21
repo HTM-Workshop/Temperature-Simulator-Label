@@ -3,7 +3,7 @@
 #   WARNING: This program and the Temp Sim board are NOT FOR MEDICAL USE!
 #
 #           Protractor Generator
-#   Written by Kevin Williams - 2024
+#   Written by Kevin Williams - 2024-2026
 #
 #  This program is free software; you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published byp
@@ -20,7 +20,7 @@
 #  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 #  MA 02110-1301, USA.
 
-VERSION = "v1.2.1"
+VERSION = "v1.3.0"
 DEBUG = True
 
 import sys
